@@ -1,0 +1,29 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+.venv/
+.venv*/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Runtime market data, ledgers, reports, and process state are local only.
+output/market_lag_dashboard/data/
+output/market_lag_dashboard/reports/
+output/market_lag_dashboard/qa/
+output/market_lag_dashboard/.refresh.lock
+output/market_lag_dashboard/.server.*
+
+# Connector and personal-account artifacts must never enter this repository.
+.ibkr_gateway/
+logs/
+snapshots/
+*.log
+*account_snapshot*
+*position_snapshot*
+*transaction*
+*portfolio*

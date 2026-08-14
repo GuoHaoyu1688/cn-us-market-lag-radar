@@ -1,0 +1,1634 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-14 09:00:00 CST",
+  "source_snapshot_hash": "synthetic-demo-v1",
+  "demo_mode": true,
+  "model": {
+    "version": "public-demo-v1",
+    "universe_version": "synthetic-universe-v1",
+    "primary_horizon": 5,
+    "framework": "双市场独立面板 + 非负凸集成 + sigmoid校准 + 经验残差区间",
+    "components": [
+      {
+        "id": "prior",
+        "label": "市场先验"
+      },
+      {
+        "id": "elastic_net",
+        "label": "正则逻辑回归"
+      },
+      {
+        "id": "gradient_boosting",
+        "label": "梯度提升树"
+      },
+      {
+        "id": "robust_trend",
+        "label": "稳健趋势模型"
+      }
+    ],
+    "boundaries": [
+      "演示数据全部为确定性合成数据",
+      "真实模式固定5个交易日为生产终点",
+      "证据不足时必须拒绝输出买入型结论"
+    ]
+  },
+  "markets": {
+    "cn": {
+      "label": "A股预测",
+      "theme": "light-warm",
+      "session": {
+        "timezone": "Asia/Shanghai",
+        "signal_cutoff": "合成演示",
+        "entry_rule": "不可交易",
+        "data_as_of": "2026-08-13",
+        "primary_horizon": 5,
+        "round_trip_cost": 0.0035,
+        "benchmark": "DEMO"
+      },
+      "universe": {
+        "policy": "公开仓库的合成演示池",
+        "eligible_count": 4,
+        "evaluated_count": 4,
+        "boards_present": [
+          "DEMO"
+        ],
+        "rejected_data_count": 0
+      },
+      "validation": {
+        "samples": 2400,
+        "positive_rate": 0.513,
+        "brier": 0.239,
+        "baseline_brier": 0.248,
+        "brier_skill": 0.027,
+        "log_loss": 0.678,
+        "calibration_error": 0.031,
+        "return_mae": 0.037,
+        "return_baseline_mae": 0.039,
+        "return_skill": 0.051,
+        "empirical_interval_coverage": 0.79,
+        "interval_target": 0.8,
+        "folds": 4,
+        "stacking_start": "2024-01-02",
+        "stacking_end": "2024-12-31",
+        "calibration_start": "2025-01-02",
+        "calibration_end": "2025-06-30",
+        "holdout_start": "2025-07-01",
+        "holdout_end": "2026-06-30",
+        "status": "合成演示，未作真实验收",
+        "method": "演示结构：purged walk-forward + 独立校准 + 封存验收",
+        "component_metrics": {
+          "prior": {
+            "samples": 2400,
+            "positive_rate": 0.513,
+            "brier": 0.241,
+            "baseline_brier": 0.2465,
+            "brier_skill": 0.022312,
+            "log_loss": 0.681,
+            "calibration_error": 0.024
+          },
+          "elastic_net": {
+            "samples": 2400,
+            "positive_rate": 0.513,
+            "brier": 0.2437,
+            "baseline_brier": 0.2465,
+            "brier_skill": 0.011359,
+            "log_loss": 0.687,
+            "calibration_error": 0.033
+          },
+          "gradient_boosting": {
+            "samples": 2400,
+            "positive_rate": 0.513,
+            "brier": 0.2464,
+            "baseline_brier": 0.2465,
+            "brier_skill": 0.000406,
+            "log_loss": 0.693,
+            "calibration_error": 0.042
+          },
+          "robust_trend": {
+            "samples": 2400,
+            "positive_rate": 0.513,
+            "brier": 0.2491,
+            "baseline_brier": 0.2465,
+            "brier_skill": -0.010548,
+            "log_loss": 0.699,
+            "calibration_error": 0.051
+          }
+        },
+        "weights": {
+          "prior": 0.25,
+          "elastic_net": 0.35,
+          "gradient_boosting": 0.25,
+          "robust_trend": 0.15
+        },
+        "calibrator": {
+          "intercept": -0.08,
+          "coefficient": 0.92
+        },
+        "training_rows": 9600,
+        "oof_rows": 4800,
+        "next_review": "实时模式下每次刷新复评",
+        "next_review_detail": "演示数据不会进入前向账本"
+      },
+      "forecasts": [
+        {
+          "market": "cn",
+          "symbol": "CN-DEMO-01",
+          "name": "演示公司甲",
+          "exchange": "DEMO-CN",
+          "board": "演示板块",
+          "board_key": "demo",
+          "sector": "光通信",
+          "as_of": "2026-08-13",
+          "signal_cutoff": "合成数据",
+          "entry_rule": "仅展示结构，不可交易",
+          "created_at": "2026-08-14T09:00:00+08:00",
+          "prediction_time": "2026-08-14T09:00:00+08:00",
+          "target_start_estimate": "2026-08-14",
+          "target_end_estimate": "2026-08-20",
+          "signal_available_at": "2026-08-13T15:00:00+08:00",
+          "entry_deadline": "2026-08-14T09:30:00+08:00",
+          "calendar_basis": "synthetic weekday demo",
+          "forward_eligible": false,
+          "entry_window_status": "demo",
+          "horizon": 5,
+          "current_price": 22.751,
+          "probability_up": 0.61,
+          "raw_probability_up": 0.622,
+          "expected_return": 0.024,
+          "quantiles": {
+            "q10": -0.031,
+            "q50": 0.024,
+            "q90": 0.08499999999999999,
+            "label": "合成演示区间",
+            "target_coverage": 0.8
+          },
+          "reliability_score": 78.4,
+          "reliability_grade": "DEMO",
+          "diagnostic_score_breakdown": {
+            "formula_version": "linear-diagnostic-v1",
+            "score": 78.4,
+            "max_score": 100.0,
+            "note": "演示用四维线性诊断分；分数不等于上涨概率",
+            "dimensions": [
+              {
+                "id": "model_evidence",
+                "label": "样本外模型证据",
+                "score": 48.0,
+                "max_score": 65.0,
+                "components": [
+                  {
+                    "id": "direction_skill",
+                    "label": "方向增益",
+                    "value": 0.03,
+                    "score": 6.0,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "return_skill",
+                    "label": "收益增益",
+                    "value": 0.05,
+                    "score": 5.0,
+                    "max_score": 10.0
+                  },
+                  {
+                    "id": "calibration",
+                    "label": "概率校准",
+                    "value": 0.031,
+                    "score": 13.8,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "interval_coverage",
+                    "label": "区间覆盖",
+                    "value": 0.79,
+                    "score": 14.2,
+                    "max_score": 15.0
+                  }
+                ]
+              },
+              {
+                "id": "data_quality",
+                "label": "数据完整性",
+                "score": 13.8,
+                "max_score": 15.0,
+                "value": 0.92
+              },
+              {
+                "id": "ensemble_agreement",
+                "label": "组件一致性",
+                "score": 12.9,
+                "max_score": 15.0,
+                "value": 0.86
+              },
+              {
+                "id": "signal_separation",
+                "label": "信号区分度",
+                "score": 3.7,
+                "max_score": 5.0,
+                "value": 0.10999999999999999
+              }
+            ]
+          },
+          "evidence_gaps": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本"
+          ],
+          "execution_restrictions": [
+            "合成演示数据禁止用于交易"
+          ],
+          "decision_status": "暂缓",
+          "abstain_reasons": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本",
+            "合成演示数据禁止用于交易"
+          ],
+          "sample_count": 0,
+          "data_quality": 0.92,
+          "ensemble_agreement": 0.86,
+          "component_predictions": [
+            {
+              "id": "prior",
+              "label": "市场先验",
+              "probability": 0.598,
+              "weight": 0.25
+            },
+            {
+              "id": "elastic_net",
+              "label": "正则逻辑回归",
+              "probability": 0.606,
+              "weight": 0.35
+            },
+            {
+              "id": "gradient_boosting",
+              "label": "梯度提升树",
+              "probability": 0.614,
+              "weight": 0.25
+            },
+            {
+              "id": "robust_trend",
+              "label": "稳健趋势模型",
+              "probability": 0.622,
+              "weight": 0.15
+            }
+          ],
+          "factor_contributions": [
+            {
+              "name": "相对强弱",
+              "value": 0.18
+            },
+            {
+              "name": "20日动量",
+              "value": 0.12
+            },
+            {
+              "name": "量能变化",
+              "value": 0.07
+            },
+            {
+              "name": "波动约束",
+              "value": -0.05
+            }
+          ],
+          "validation": {
+            "brier": 0.242,
+            "baseline_brier": 0.248,
+            "brier_skill": 0.024,
+            "return_skill": 0.051,
+            "calibration_error": 0.031,
+            "empirical_interval_coverage": 0.79,
+            "holdout_start": "2025-07-01",
+            "holdout_end": "2026-06-30"
+          },
+          "chart_ref": "./demo/charts/cn/CN-DEMO-01.json"
+        },
+        {
+          "market": "cn",
+          "symbol": "CN-DEMO-02",
+          "name": "演示公司乙",
+          "exchange": "DEMO-CN",
+          "board": "演示板块",
+          "board_key": "demo",
+          "sector": "存储",
+          "as_of": "2026-08-13",
+          "signal_cutoff": "合成数据",
+          "entry_rule": "仅展示结构，不可交易",
+          "created_at": "2026-08-14T09:00:00+08:00",
+          "prediction_time": "2026-08-14T09:00:00+08:00",
+          "target_start_estimate": "2026-08-14",
+          "target_end_estimate": "2026-08-20",
+          "signal_available_at": "2026-08-13T15:00:00+08:00",
+          "entry_deadline": "2026-08-14T09:30:00+08:00",
+          "calendar_basis": "synthetic weekday demo",
+          "forward_eligible": false,
+          "entry_window_status": "demo",
+          "horizon": 5,
+          "current_price": 18.742,
+          "probability_up": 0.57,
+          "raw_probability_up": 0.582,
+          "expected_return": 0.015,
+          "quantiles": {
+            "q10": -0.04,
+            "q50": 0.015,
+            "q90": 0.076,
+            "label": "合成演示区间",
+            "target_coverage": 0.8
+          },
+          "reliability_score": 76.5,
+          "reliability_grade": "DEMO",
+          "diagnostic_score_breakdown": {
+            "formula_version": "linear-diagnostic-v1",
+            "score": 76.5,
+            "max_score": 100.0,
+            "note": "演示用四维线性诊断分；分数不等于上涨概率",
+            "dimensions": [
+              {
+                "id": "model_evidence",
+                "label": "样本外模型证据",
+                "score": 48.0,
+                "max_score": 65.0,
+                "components": [
+                  {
+                    "id": "direction_skill",
+                    "label": "方向增益",
+                    "value": 0.03,
+                    "score": 6.0,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "return_skill",
+                    "label": "收益增益",
+                    "value": 0.05,
+                    "score": 5.0,
+                    "max_score": 10.0
+                  },
+                  {
+                    "id": "calibration",
+                    "label": "概率校准",
+                    "value": 0.031,
+                    "score": 13.8,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "interval_coverage",
+                    "label": "区间覆盖",
+                    "value": 0.79,
+                    "score": 14.2,
+                    "max_score": 15.0
+                  }
+                ]
+              },
+              {
+                "id": "data_quality",
+                "label": "数据完整性",
+                "score": 13.6,
+                "max_score": 15.0,
+                "value": 0.905
+              },
+              {
+                "id": "ensemble_agreement",
+                "label": "组件一致性",
+                "score": 12.6,
+                "max_score": 15.0,
+                "value": 0.84
+              },
+              {
+                "id": "signal_separation",
+                "label": "信号区分度",
+                "score": 2.3,
+                "max_score": 5.0,
+                "value": 0.06999999999999995
+              }
+            ]
+          },
+          "evidence_gaps": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本"
+          ],
+          "execution_restrictions": [
+            "合成演示数据禁止用于交易"
+          ],
+          "decision_status": "暂缓",
+          "abstain_reasons": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本",
+            "合成演示数据禁止用于交易"
+          ],
+          "sample_count": 0,
+          "data_quality": 0.905,
+          "ensemble_agreement": 0.84,
+          "component_predictions": [
+            {
+              "id": "prior",
+              "label": "市场先验",
+              "probability": 0.558,
+              "weight": 0.25
+            },
+            {
+              "id": "elastic_net",
+              "label": "正则逻辑回归",
+              "probability": 0.566,
+              "weight": 0.35
+            },
+            {
+              "id": "gradient_boosting",
+              "label": "梯度提升树",
+              "probability": 0.574,
+              "weight": 0.25
+            },
+            {
+              "id": "robust_trend",
+              "label": "稳健趋势模型",
+              "probability": 0.582,
+              "weight": 0.15
+            }
+          ],
+          "factor_contributions": [
+            {
+              "name": "相对强弱",
+              "value": 0.16999999999999998
+            },
+            {
+              "name": "20日动量",
+              "value": 0.13
+            },
+            {
+              "name": "量能变化",
+              "value": 0.07
+            },
+            {
+              "name": "波动约束",
+              "value": -0.05
+            }
+          ],
+          "validation": {
+            "brier": 0.242,
+            "baseline_brier": 0.248,
+            "brier_skill": 0.024,
+            "return_skill": 0.051,
+            "calibration_error": 0.031,
+            "empirical_interval_coverage": 0.79,
+            "holdout_start": "2025-07-01",
+            "holdout_end": "2026-06-30"
+          },
+          "chart_ref": "./demo/charts/cn/CN-DEMO-02.json"
+        },
+        {
+          "market": "cn",
+          "symbol": "CN-DEMO-03",
+          "name": "演示公司丙",
+          "exchange": "DEMO-CN",
+          "board": "演示板块",
+          "board_key": "demo",
+          "sector": "消费",
+          "as_of": "2026-08-13",
+          "signal_cutoff": "合成数据",
+          "entry_rule": "仅展示结构，不可交易",
+          "created_at": "2026-08-14T09:00:00+08:00",
+          "prediction_time": "2026-08-14T09:00:00+08:00",
+          "target_start_estimate": "2026-08-14",
+          "target_end_estimate": "2026-08-20",
+          "signal_available_at": "2026-08-13T15:00:00+08:00",
+          "entry_deadline": "2026-08-14T09:30:00+08:00",
+          "calendar_basis": "synthetic weekday demo",
+          "forward_eligible": false,
+          "entry_window_status": "demo",
+          "horizon": 5,
+          "current_price": 11.774,
+          "probability_up": 0.53,
+          "raw_probability_up": 0.542,
+          "expected_return": 0.007,
+          "quantiles": {
+            "q10": -0.048,
+            "q50": 0.007,
+            "q90": 0.068,
+            "label": "合成演示区间",
+            "target_coverage": 0.8
+          },
+          "reliability_score": 74.6,
+          "reliability_grade": "DEMO",
+          "diagnostic_score_breakdown": {
+            "formula_version": "linear-diagnostic-v1",
+            "score": 74.6,
+            "max_score": 100.0,
+            "note": "演示用四维线性诊断分；分数不等于上涨概率",
+            "dimensions": [
+              {
+                "id": "model_evidence",
+                "label": "样本外模型证据",
+                "score": 48.0,
+                "max_score": 65.0,
+                "components": [
+                  {
+                    "id": "direction_skill",
+                    "label": "方向增益",
+                    "value": 0.03,
+                    "score": 6.0,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "return_skill",
+                    "label": "收益增益",
+                    "value": 0.05,
+                    "score": 5.0,
+                    "max_score": 10.0
+                  },
+                  {
+                    "id": "calibration",
+                    "label": "概率校准",
+                    "value": 0.031,
+                    "score": 13.8,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "interval_coverage",
+                    "label": "区间覆盖",
+                    "value": 0.79,
+                    "score": 14.2,
+                    "max_score": 15.0
+                  }
+                ]
+              },
+              {
+                "id": "data_quality",
+                "label": "数据完整性",
+                "score": 13.3,
+                "max_score": 15.0,
+                "value": 0.89
+              },
+              {
+                "id": "ensemble_agreement",
+                "label": "组件一致性",
+                "score": 12.3,
+                "max_score": 15.0,
+                "value": 0.82
+              },
+              {
+                "id": "signal_separation",
+                "label": "信号区分度",
+                "score": 1.0,
+                "max_score": 5.0,
+                "value": 0.030000000000000027
+              }
+            ]
+          },
+          "evidence_gaps": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本"
+          ],
+          "execution_restrictions": [
+            "合成演示数据禁止用于交易"
+          ],
+          "decision_status": "暂缓",
+          "abstain_reasons": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本",
+            "合成演示数据禁止用于交易"
+          ],
+          "sample_count": 0,
+          "data_quality": 0.89,
+          "ensemble_agreement": 0.82,
+          "component_predictions": [
+            {
+              "id": "prior",
+              "label": "市场先验",
+              "probability": 0.518,
+              "weight": 0.25
+            },
+            {
+              "id": "elastic_net",
+              "label": "正则逻辑回归",
+              "probability": 0.526,
+              "weight": 0.35
+            },
+            {
+              "id": "gradient_boosting",
+              "label": "梯度提升树",
+              "probability": 0.534,
+              "weight": 0.25
+            },
+            {
+              "id": "robust_trend",
+              "label": "稳健趋势模型",
+              "probability": 0.542,
+              "weight": 0.15
+            }
+          ],
+          "factor_contributions": [
+            {
+              "name": "相对强弱",
+              "value": 0.16
+            },
+            {
+              "name": "20日动量",
+              "value": 0.13999999999999999
+            },
+            {
+              "name": "量能变化",
+              "value": 0.07
+            },
+            {
+              "name": "波动约束",
+              "value": -0.05
+            }
+          ],
+          "validation": {
+            "brier": 0.242,
+            "baseline_brier": 0.248,
+            "brier_skill": 0.024,
+            "return_skill": 0.051,
+            "calibration_error": 0.031,
+            "empirical_interval_coverage": 0.79,
+            "holdout_start": "2025-07-01",
+            "holdout_end": "2026-06-30"
+          },
+          "chart_ref": "./demo/charts/cn/CN-DEMO-03.json"
+        },
+        {
+          "market": "cn",
+          "symbol": "CN-DEMO-04",
+          "name": "演示公司丁",
+          "exchange": "DEMO-CN",
+          "board": "演示板块",
+          "board_key": "demo",
+          "sector": "银行",
+          "as_of": "2026-08-13",
+          "signal_cutoff": "合成数据",
+          "entry_rule": "仅展示结构，不可交易",
+          "created_at": "2026-08-14T09:00:00+08:00",
+          "prediction_time": "2026-08-14T09:00:00+08:00",
+          "target_start_estimate": "2026-08-14",
+          "target_end_estimate": "2026-08-20",
+          "signal_available_at": "2026-08-13T15:00:00+08:00",
+          "entry_deadline": "2026-08-14T09:30:00+08:00",
+          "calendar_basis": "synthetic weekday demo",
+          "forward_eligible": false,
+          "entry_window_status": "demo",
+          "horizon": 5,
+          "current_price": 8.012,
+          "probability_up": 0.49,
+          "raw_probability_up": 0.502,
+          "expected_return": -0.003,
+          "quantiles": {
+            "q10": -0.058,
+            "q50": -0.003,
+            "q90": 0.057999999999999996,
+            "label": "合成演示区间",
+            "target_coverage": 0.8
+          },
+          "reliability_score": 73.4,
+          "reliability_grade": "DEMO",
+          "diagnostic_score_breakdown": {
+            "formula_version": "linear-diagnostic-v1",
+            "score": 73.4,
+            "max_score": 100.0,
+            "note": "演示用四维线性诊断分；分数不等于上涨概率",
+            "dimensions": [
+              {
+                "id": "model_evidence",
+                "label": "样本外模型证据",
+                "score": 48.0,
+                "max_score": 65.0,
+                "components": [
+                  {
+                    "id": "direction_skill",
+                    "label": "方向增益",
+                    "value": 0.03,
+                    "score": 6.0,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "return_skill",
+                    "label": "收益增益",
+                    "value": 0.05,
+                    "score": 5.0,
+                    "max_score": 10.0
+                  },
+                  {
+                    "id": "calibration",
+                    "label": "概率校准",
+                    "value": 0.031,
+                    "score": 13.8,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "interval_coverage",
+                    "label": "区间覆盖",
+                    "value": 0.79,
+                    "score": 14.2,
+                    "max_score": 15.0
+                  }
+                ]
+              },
+              {
+                "id": "data_quality",
+                "label": "数据完整性",
+                "score": 13.1,
+                "max_score": 15.0,
+                "value": 0.875
+              },
+              {
+                "id": "ensemble_agreement",
+                "label": "组件一致性",
+                "score": 12.0,
+                "max_score": 15.0,
+                "value": 0.8
+              },
+              {
+                "id": "signal_separation",
+                "label": "信号区分度",
+                "score": 0.3,
+                "max_score": 5.0,
+                "value": 0.010000000000000009
+              }
+            ]
+          },
+          "evidence_gaps": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本"
+          ],
+          "execution_restrictions": [
+            "合成演示数据禁止用于交易"
+          ],
+          "decision_status": "暂缓",
+          "abstain_reasons": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本",
+            "合成演示数据禁止用于交易"
+          ],
+          "sample_count": 0,
+          "data_quality": 0.875,
+          "ensemble_agreement": 0.8,
+          "component_predictions": [
+            {
+              "id": "prior",
+              "label": "市场先验",
+              "probability": 0.478,
+              "weight": 0.25
+            },
+            {
+              "id": "elastic_net",
+              "label": "正则逻辑回归",
+              "probability": 0.486,
+              "weight": 0.35
+            },
+            {
+              "id": "gradient_boosting",
+              "label": "梯度提升树",
+              "probability": 0.494,
+              "weight": 0.25
+            },
+            {
+              "id": "robust_trend",
+              "label": "稳健趋势模型",
+              "probability": 0.502,
+              "weight": 0.15
+            }
+          ],
+          "factor_contributions": [
+            {
+              "name": "相对强弱",
+              "value": 0.15
+            },
+            {
+              "name": "20日动量",
+              "value": 0.15
+            },
+            {
+              "name": "量能变化",
+              "value": 0.07
+            },
+            {
+              "name": "波动约束",
+              "value": -0.05
+            }
+          ],
+          "validation": {
+            "brier": 0.242,
+            "baseline_brier": 0.248,
+            "brier_skill": 0.024,
+            "return_skill": 0.051,
+            "calibration_error": 0.031,
+            "empirical_interval_coverage": 0.79,
+            "holdout_start": "2025-07-01",
+            "holdout_end": "2026-06-30"
+          },
+          "chart_ref": "./demo/charts/cn/CN-DEMO-04.json"
+        }
+      ],
+      "forward_validation": {
+        "total": 0,
+        "legacy_unverifiable": 0,
+        "pending": 0,
+        "resolved": 0,
+        "void": 0,
+        "accepted_resolved": 0,
+        "brier": null,
+        "accepted_brier": null,
+        "interval_coverage": null
+      }
+    },
+    "us": {
+      "label": "美股预测",
+      "theme": "dark-cool",
+      "session": {
+        "timezone": "America/New_York",
+        "signal_cutoff": "合成演示",
+        "entry_rule": "不可交易",
+        "data_as_of": "2026-08-13",
+        "primary_horizon": 5,
+        "round_trip_cost": 0.0015,
+        "benchmark": "DEMO"
+      },
+      "universe": {
+        "policy": "公开仓库的合成演示池",
+        "eligible_count": 4,
+        "evaluated_count": 4,
+        "boards_present": [
+          "DEMO"
+        ],
+        "rejected_data_count": 0
+      },
+      "validation": {
+        "samples": 1800,
+        "positive_rate": 0.516,
+        "brier": 0.236,
+        "baseline_brier": 0.248,
+        "brier_skill": 0.03,
+        "log_loss": 0.675,
+        "calibration_error": 0.031,
+        "return_mae": 0.037,
+        "return_baseline_mae": 0.039,
+        "return_skill": 0.051,
+        "empirical_interval_coverage": 0.79,
+        "interval_target": 0.8,
+        "folds": 4,
+        "stacking_start": "2024-01-02",
+        "stacking_end": "2024-12-31",
+        "calibration_start": "2025-01-02",
+        "calibration_end": "2025-06-30",
+        "holdout_start": "2025-07-01",
+        "holdout_end": "2026-06-30",
+        "status": "合成演示，未作真实验收",
+        "method": "演示结构：purged walk-forward + 独立校准 + 封存验收",
+        "component_metrics": {
+          "prior": {
+            "samples": 1800,
+            "positive_rate": 0.516,
+            "brier": 0.238,
+            "baseline_brier": 0.245,
+            "brier_skill": 0.028571,
+            "log_loss": 0.678,
+            "calibration_error": 0.024
+          },
+          "elastic_net": {
+            "samples": 1800,
+            "positive_rate": 0.516,
+            "brier": 0.2407,
+            "baseline_brier": 0.245,
+            "brier_skill": 0.017551,
+            "log_loss": 0.684,
+            "calibration_error": 0.033
+          },
+          "gradient_boosting": {
+            "samples": 1800,
+            "positive_rate": 0.516,
+            "brier": 0.2434,
+            "baseline_brier": 0.245,
+            "brier_skill": 0.006531,
+            "log_loss": 0.69,
+            "calibration_error": 0.042
+          },
+          "robust_trend": {
+            "samples": 1800,
+            "positive_rate": 0.516,
+            "brier": 0.2461,
+            "baseline_brier": 0.245,
+            "brier_skill": -0.00449,
+            "log_loss": 0.696,
+            "calibration_error": 0.051
+          }
+        },
+        "weights": {
+          "prior": 0.25,
+          "elastic_net": 0.35,
+          "gradient_boosting": 0.25,
+          "robust_trend": 0.15
+        },
+        "calibrator": {
+          "intercept": -0.08,
+          "coefficient": 0.92
+        },
+        "training_rows": 7200,
+        "oof_rows": 3600,
+        "next_review": "实时模式下每次刷新复评",
+        "next_review_detail": "演示数据不会进入前向账本"
+      },
+      "forecasts": [
+        {
+          "market": "us",
+          "symbol": "US-DEMO-01",
+          "name": "Demo Systems",
+          "exchange": "DEMO-US",
+          "board": "演示板块",
+          "board_key": "demo",
+          "sector": "Optical Interconnect",
+          "as_of": "2026-08-13",
+          "signal_cutoff": "合成数据",
+          "entry_rule": "仅展示结构，不可交易",
+          "created_at": "2026-08-14T09:00:00+08:00",
+          "prediction_time": "2026-08-14T09:00:00+08:00",
+          "target_start_estimate": "2026-08-14",
+          "target_end_estimate": "2026-08-20",
+          "signal_available_at": "2026-08-13T15:00:00+08:00",
+          "entry_deadline": "2026-08-14T09:30:00+08:00",
+          "calendar_basis": "synthetic weekday demo",
+          "forward_eligible": false,
+          "entry_window_status": "demo",
+          "horizon": 5,
+          "current_price": 72.606,
+          "probability_up": 0.59,
+          "raw_probability_up": 0.602,
+          "expected_return": 0.019,
+          "quantiles": {
+            "q10": -0.036000000000000004,
+            "q50": 0.019,
+            "q90": 0.08,
+            "label": "合成演示区间",
+            "target_coverage": 0.8
+          },
+          "reliability_score": 77.7,
+          "reliability_grade": "DEMO",
+          "diagnostic_score_breakdown": {
+            "formula_version": "linear-diagnostic-v1",
+            "score": 77.7,
+            "max_score": 100.0,
+            "note": "演示用四维线性诊断分；分数不等于上涨概率",
+            "dimensions": [
+              {
+                "id": "model_evidence",
+                "label": "样本外模型证据",
+                "score": 48.0,
+                "max_score": 65.0,
+                "components": [
+                  {
+                    "id": "direction_skill",
+                    "label": "方向增益",
+                    "value": 0.03,
+                    "score": 6.0,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "return_skill",
+                    "label": "收益增益",
+                    "value": 0.05,
+                    "score": 5.0,
+                    "max_score": 10.0
+                  },
+                  {
+                    "id": "calibration",
+                    "label": "概率校准",
+                    "value": 0.031,
+                    "score": 13.8,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "interval_coverage",
+                    "label": "区间覆盖",
+                    "value": 0.79,
+                    "score": 14.2,
+                    "max_score": 15.0
+                  }
+                ]
+              },
+              {
+                "id": "data_quality",
+                "label": "数据完整性",
+                "score": 13.8,
+                "max_score": 15.0,
+                "value": 0.92
+              },
+              {
+                "id": "ensemble_agreement",
+                "label": "组件一致性",
+                "score": 12.9,
+                "max_score": 15.0,
+                "value": 0.86
+              },
+              {
+                "id": "signal_separation",
+                "label": "信号区分度",
+                "score": 3.0,
+                "max_score": 5.0,
+                "value": 0.08999999999999997
+              }
+            ]
+          },
+          "evidence_gaps": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本"
+          ],
+          "execution_restrictions": [
+            "合成演示数据禁止用于交易"
+          ],
+          "decision_status": "暂缓",
+          "abstain_reasons": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本",
+            "合成演示数据禁止用于交易"
+          ],
+          "sample_count": 0,
+          "data_quality": 0.92,
+          "ensemble_agreement": 0.86,
+          "component_predictions": [
+            {
+              "id": "prior",
+              "label": "市场先验",
+              "probability": 0.578,
+              "weight": 0.25
+            },
+            {
+              "id": "elastic_net",
+              "label": "正则逻辑回归",
+              "probability": 0.586,
+              "weight": 0.35
+            },
+            {
+              "id": "gradient_boosting",
+              "label": "梯度提升树",
+              "probability": 0.594,
+              "weight": 0.25
+            },
+            {
+              "id": "robust_trend",
+              "label": "稳健趋势模型",
+              "probability": 0.602,
+              "weight": 0.15
+            }
+          ],
+          "factor_contributions": [
+            {
+              "name": "相对强弱",
+              "value": 0.18
+            },
+            {
+              "name": "20日动量",
+              "value": 0.12
+            },
+            {
+              "name": "量能变化",
+              "value": 0.07
+            },
+            {
+              "name": "波动约束",
+              "value": -0.05
+            }
+          ],
+          "validation": {
+            "brier": 0.242,
+            "baseline_brier": 0.248,
+            "brier_skill": 0.024,
+            "return_skill": 0.051,
+            "calibration_error": 0.031,
+            "empirical_interval_coverage": 0.79,
+            "holdout_start": "2025-07-01",
+            "holdout_end": "2026-06-30"
+          },
+          "chart_ref": "./demo/charts/us/US-DEMO-01.json"
+        },
+        {
+          "market": "us",
+          "symbol": "US-DEMO-02",
+          "name": "Demo Memory",
+          "exchange": "DEMO-US",
+          "board": "演示板块",
+          "board_key": "demo",
+          "sector": "Memory",
+          "as_of": "2026-08-13",
+          "signal_cutoff": "合成数据",
+          "entry_rule": "仅展示结构，不可交易",
+          "created_at": "2026-08-14T09:00:00+08:00",
+          "prediction_time": "2026-08-14T09:00:00+08:00",
+          "target_start_estimate": "2026-08-14",
+          "target_end_estimate": "2026-08-20",
+          "signal_available_at": "2026-08-13T15:00:00+08:00",
+          "entry_deadline": "2026-08-14T09:30:00+08:00",
+          "calendar_basis": "synthetic weekday demo",
+          "forward_eligible": false,
+          "entry_window_status": "demo",
+          "horizon": 5,
+          "current_price": 59.067,
+          "probability_up": 0.56,
+          "raw_probability_up": 0.572,
+          "expected_return": 0.012,
+          "quantiles": {
+            "q10": -0.043,
+            "q50": 0.012,
+            "q90": 0.073,
+            "label": "合成演示区间",
+            "target_coverage": 0.8
+          },
+          "reliability_score": 76.2,
+          "reliability_grade": "DEMO",
+          "diagnostic_score_breakdown": {
+            "formula_version": "linear-diagnostic-v1",
+            "score": 76.2,
+            "max_score": 100.0,
+            "note": "演示用四维线性诊断分；分数不等于上涨概率",
+            "dimensions": [
+              {
+                "id": "model_evidence",
+                "label": "样本外模型证据",
+                "score": 48.0,
+                "max_score": 65.0,
+                "components": [
+                  {
+                    "id": "direction_skill",
+                    "label": "方向增益",
+                    "value": 0.03,
+                    "score": 6.0,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "return_skill",
+                    "label": "收益增益",
+                    "value": 0.05,
+                    "score": 5.0,
+                    "max_score": 10.0
+                  },
+                  {
+                    "id": "calibration",
+                    "label": "概率校准",
+                    "value": 0.031,
+                    "score": 13.8,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "interval_coverage",
+                    "label": "区间覆盖",
+                    "value": 0.79,
+                    "score": 14.2,
+                    "max_score": 15.0
+                  }
+                ]
+              },
+              {
+                "id": "data_quality",
+                "label": "数据完整性",
+                "score": 13.6,
+                "max_score": 15.0,
+                "value": 0.905
+              },
+              {
+                "id": "ensemble_agreement",
+                "label": "组件一致性",
+                "score": 12.6,
+                "max_score": 15.0,
+                "value": 0.84
+              },
+              {
+                "id": "signal_separation",
+                "label": "信号区分度",
+                "score": 2.0,
+                "max_score": 5.0,
+                "value": 0.06000000000000005
+              }
+            ]
+          },
+          "evidence_gaps": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本"
+          ],
+          "execution_restrictions": [
+            "合成演示数据禁止用于交易"
+          ],
+          "decision_status": "暂缓",
+          "abstain_reasons": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本",
+            "合成演示数据禁止用于交易"
+          ],
+          "sample_count": 0,
+          "data_quality": 0.905,
+          "ensemble_agreement": 0.84,
+          "component_predictions": [
+            {
+              "id": "prior",
+              "label": "市场先验",
+              "probability": 0.548,
+              "weight": 0.25
+            },
+            {
+              "id": "elastic_net",
+              "label": "正则逻辑回归",
+              "probability": 0.556,
+              "weight": 0.35
+            },
+            {
+              "id": "gradient_boosting",
+              "label": "梯度提升树",
+              "probability": 0.564,
+              "weight": 0.25
+            },
+            {
+              "id": "robust_trend",
+              "label": "稳健趋势模型",
+              "probability": 0.572,
+              "weight": 0.15
+            }
+          ],
+          "factor_contributions": [
+            {
+              "name": "相对强弱",
+              "value": 0.16999999999999998
+            },
+            {
+              "name": "20日动量",
+              "value": 0.13
+            },
+            {
+              "name": "量能变化",
+              "value": 0.07
+            },
+            {
+              "name": "波动约束",
+              "value": -0.05
+            }
+          ],
+          "validation": {
+            "brier": 0.242,
+            "baseline_brier": 0.248,
+            "brier_skill": 0.024,
+            "return_skill": 0.051,
+            "calibration_error": 0.031,
+            "empirical_interval_coverage": 0.79,
+            "holdout_start": "2025-07-01",
+            "holdout_end": "2026-06-30"
+          },
+          "chart_ref": "./demo/charts/us/US-DEMO-02.json"
+        },
+        {
+          "market": "us",
+          "symbol": "US-DEMO-03",
+          "name": "Demo Retail",
+          "exchange": "DEMO-US",
+          "board": "演示板块",
+          "board_key": "demo",
+          "sector": "Consumer",
+          "as_of": "2026-08-13",
+          "signal_cutoff": "合成数据",
+          "entry_rule": "仅展示结构，不可交易",
+          "created_at": "2026-08-14T09:00:00+08:00",
+          "prediction_time": "2026-08-14T09:00:00+08:00",
+          "target_start_estimate": "2026-08-14",
+          "target_end_estimate": "2026-08-20",
+          "signal_available_at": "2026-08-13T15:00:00+08:00",
+          "entry_deadline": "2026-08-14T09:30:00+08:00",
+          "calendar_basis": "synthetic weekday demo",
+          "forward_eligible": false,
+          "entry_window_status": "demo",
+          "horizon": 5,
+          "current_price": 38.833,
+          "probability_up": 0.52,
+          "raw_probability_up": 0.532,
+          "expected_return": 0.005,
+          "quantiles": {
+            "q10": -0.05,
+            "q50": 0.005,
+            "q90": 0.066,
+            "label": "合成演示区间",
+            "target_coverage": 0.8
+          },
+          "reliability_score": 74.3,
+          "reliability_grade": "DEMO",
+          "diagnostic_score_breakdown": {
+            "formula_version": "linear-diagnostic-v1",
+            "score": 74.3,
+            "max_score": 100.0,
+            "note": "演示用四维线性诊断分；分数不等于上涨概率",
+            "dimensions": [
+              {
+                "id": "model_evidence",
+                "label": "样本外模型证据",
+                "score": 48.0,
+                "max_score": 65.0,
+                "components": [
+                  {
+                    "id": "direction_skill",
+                    "label": "方向增益",
+                    "value": 0.03,
+                    "score": 6.0,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "return_skill",
+                    "label": "收益增益",
+                    "value": 0.05,
+                    "score": 5.0,
+                    "max_score": 10.0
+                  },
+                  {
+                    "id": "calibration",
+                    "label": "概率校准",
+                    "value": 0.031,
+                    "score": 13.8,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "interval_coverage",
+                    "label": "区间覆盖",
+                    "value": 0.79,
+                    "score": 14.2,
+                    "max_score": 15.0
+                  }
+                ]
+              },
+              {
+                "id": "data_quality",
+                "label": "数据完整性",
+                "score": 13.3,
+                "max_score": 15.0,
+                "value": 0.89
+              },
+              {
+                "id": "ensemble_agreement",
+                "label": "组件一致性",
+                "score": 12.3,
+                "max_score": 15.0,
+                "value": 0.82
+              },
+              {
+                "id": "signal_separation",
+                "label": "信号区分度",
+                "score": 0.7,
+                "max_score": 5.0,
+                "value": 0.020000000000000018
+              }
+            ]
+          },
+          "evidence_gaps": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本"
+          ],
+          "execution_restrictions": [
+            "合成演示数据禁止用于交易"
+          ],
+          "decision_status": "暂缓",
+          "abstain_reasons": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本",
+            "合成演示数据禁止用于交易"
+          ],
+          "sample_count": 0,
+          "data_quality": 0.89,
+          "ensemble_agreement": 0.82,
+          "component_predictions": [
+            {
+              "id": "prior",
+              "label": "市场先验",
+              "probability": 0.508,
+              "weight": 0.25
+            },
+            {
+              "id": "elastic_net",
+              "label": "正则逻辑回归",
+              "probability": 0.516,
+              "weight": 0.35
+            },
+            {
+              "id": "gradient_boosting",
+              "label": "梯度提升树",
+              "probability": 0.524,
+              "weight": 0.25
+            },
+            {
+              "id": "robust_trend",
+              "label": "稳健趋势模型",
+              "probability": 0.532,
+              "weight": 0.15
+            }
+          ],
+          "factor_contributions": [
+            {
+              "name": "相对强弱",
+              "value": 0.16
+            },
+            {
+              "name": "20日动量",
+              "value": 0.13999999999999999
+            },
+            {
+              "name": "量能变化",
+              "value": 0.07
+            },
+            {
+              "name": "波动约束",
+              "value": -0.05
+            }
+          ],
+          "validation": {
+            "brier": 0.242,
+            "baseline_brier": 0.248,
+            "brier_skill": 0.024,
+            "return_skill": 0.051,
+            "calibration_error": 0.031,
+            "empirical_interval_coverage": 0.79,
+            "holdout_start": "2025-07-01",
+            "holdout_end": "2026-06-30"
+          },
+          "chart_ref": "./demo/charts/us/US-DEMO-03.json"
+        },
+        {
+          "market": "us",
+          "symbol": "US-DEMO-04",
+          "name": "Demo Bank",
+          "exchange": "DEMO-US",
+          "board": "演示板块",
+          "board_key": "demo",
+          "sector": "Banking",
+          "as_of": "2026-08-13",
+          "signal_cutoff": "合成数据",
+          "entry_rule": "仅展示结构，不可交易",
+          "created_at": "2026-08-14T09:00:00+08:00",
+          "prediction_time": "2026-08-14T09:00:00+08:00",
+          "target_start_estimate": "2026-08-14",
+          "target_end_estimate": "2026-08-20",
+          "signal_available_at": "2026-08-13T15:00:00+08:00",
+          "entry_deadline": "2026-08-14T09:30:00+08:00",
+          "calendar_basis": "synthetic weekday demo",
+          "forward_eligible": false,
+          "entry_window_status": "demo",
+          "horizon": 5,
+          "current_price": 32.243,
+          "probability_up": 0.48,
+          "raw_probability_up": 0.492,
+          "expected_return": -0.004,
+          "quantiles": {
+            "q10": -0.059,
+            "q50": -0.004,
+            "q90": 0.056999999999999995,
+            "label": "合成演示区间",
+            "target_coverage": 0.8
+          },
+          "reliability_score": 73.8,
+          "reliability_grade": "DEMO",
+          "diagnostic_score_breakdown": {
+            "formula_version": "linear-diagnostic-v1",
+            "score": 73.8,
+            "max_score": 100.0,
+            "note": "演示用四维线性诊断分；分数不等于上涨概率",
+            "dimensions": [
+              {
+                "id": "model_evidence",
+                "label": "样本外模型证据",
+                "score": 48.0,
+                "max_score": 65.0,
+                "components": [
+                  {
+                    "id": "direction_skill",
+                    "label": "方向增益",
+                    "value": 0.03,
+                    "score": 6.0,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "return_skill",
+                    "label": "收益增益",
+                    "value": 0.05,
+                    "score": 5.0,
+                    "max_score": 10.0
+                  },
+                  {
+                    "id": "calibration",
+                    "label": "概率校准",
+                    "value": 0.031,
+                    "score": 13.8,
+                    "max_score": 20.0
+                  },
+                  {
+                    "id": "interval_coverage",
+                    "label": "区间覆盖",
+                    "value": 0.79,
+                    "score": 14.2,
+                    "max_score": 15.0
+                  }
+                ]
+              },
+              {
+                "id": "data_quality",
+                "label": "数据完整性",
+                "score": 13.1,
+                "max_score": 15.0,
+                "value": 0.875
+              },
+              {
+                "id": "ensemble_agreement",
+                "label": "组件一致性",
+                "score": 12.0,
+                "max_score": 15.0,
+                "value": 0.8
+              },
+              {
+                "id": "signal_separation",
+                "label": "信号区分度",
+                "score": 0.7,
+                "max_score": 5.0,
+                "value": 0.020000000000000018
+              }
+            ]
+          },
+          "evidence_gaps": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本"
+          ],
+          "execution_restrictions": [
+            "合成演示数据禁止用于交易"
+          ],
+          "decision_status": "暂缓",
+          "abstain_reasons": [
+            "合成数据不具备真实市场证据",
+            "未进入真实前向账本",
+            "合成演示数据禁止用于交易"
+          ],
+          "sample_count": 0,
+          "data_quality": 0.875,
+          "ensemble_agreement": 0.8,
+          "component_predictions": [
+            {
+              "id": "prior",
+              "label": "市场先验",
+              "probability": 0.468,
+              "weight": 0.25
+            },
+            {
+              "id": "elastic_net",
+              "label": "正则逻辑回归",
+              "probability": 0.476,
+              "weight": 0.35
+            },
+            {
+              "id": "gradient_boosting",
+              "label": "梯度提升树",
+              "probability": 0.484,
+              "weight": 0.25
+            },
+            {
+              "id": "robust_trend",
+              "label": "稳健趋势模型",
+              "probability": 0.492,
+              "weight": 0.15
+            }
+          ],
+          "factor_contributions": [
+            {
+              "name": "相对强弱",
+              "value": 0.15
+            },
+            {
+              "name": "20日动量",
+              "value": 0.15
+            },
+            {
+              "name": "量能变化",
+              "value": 0.07
+            },
+            {
+              "name": "波动约束",
+              "value": -0.05
+            }
+          ],
+          "validation": {
+            "brier": 0.242,
+            "baseline_brier": 0.248,
+            "brier_skill": 0.024,
+            "return_skill": 0.051,
+            "calibration_error": 0.031,
+            "empirical_interval_coverage": 0.79,
+            "holdout_start": "2025-07-01",
+            "holdout_end": "2026-06-30"
+          },
+          "chart_ref": "./demo/charts/us/US-DEMO-04.json"
+        }
+      ],
+      "forward_validation": {
+        "total": 0,
+        "legacy_unverifiable": 0,
+        "pending": 0,
+        "resolved": 0,
+        "void": 0,
+        "accepted_resolved": 0,
+        "brier": null,
+        "accepted_brier": null,
+        "interval_coverage": null
+      }
+    }
+  },
+  "improvement": {
+    "review_cadence": "真实模式下每次刷新结算到期样本并复评",
+    "next_review": "合成演示不复评"
+  },
+  "collection_status": {
+    "mode": "synthetic_demo",
+    "personal_data": false
+  },
+  "disclaimer": "Synthetic demonstration only. Not investment advice."
+}
